@@ -1,0 +1,29 @@
+function fileName = hcp_nii_quicksave(data, fileName, sourcemodel3d, gridStep, varargin)
+%HCP_NII_QUICKSAVE save volume to nifti when sampled on hcp grid
+%
+% fname_out = nii_quicksave(mat,fname,input_spat_res,interp) 
+
+global OSLDIR
+
+% declare empty volume of same size as grid
+vol = zeros(length(sourcemodel3d.cfg.grid.template.xgrid), ...
+            length(sourcemodel3d.cfg.grid.template.ygrid), ...
+            length(sourcemodel3d.cfg.grid.template.zgrid), ...
+            size(data,2));
+
+% fill in volume with source variance at correct locations
+for vox = sourcemodel3d.cfg.grid.template.inside;
+    vol(sourcemodel3d.cfg.grid.template.pos(vox,1) == sourcemodel3d.cfg.grid.template.xgrid,...
+        sourcemodel3d.cfg.grid.template.pos(vox,2) == sourcemodel3d.cfg.grid.template.ygrid,...
+        sourcemodel3d.cfg.grid.template.pos(vox,3) == sourcemodel3d.cfg.grid.template.zgrid,:) = ...
+        data(vox == sourcemodel3d.cfg.grid.template.inside,:);
+end
+
+Vq = hcp_resample_to_mni(vol,round(sourcemodel3d.cfg.grid.template.xgrid * 10), ...
+                             round(sourcemodel3d.cfg.grid.template.ygrid * 10), ...
+                             round(sourcemodel3d.cfg.grid.template.zgrid * 10), ...
+                             gridStep);
+
+save_avw(Vq, fileName, 'f', [gridStep, gridStep, gridStep, 1]);
+maskName = [OSLDIR '/std_masks/MNI152_T1_' num2str(gridStep) 'mm_brain_mask.nii.gz'];
+system(['fslcpgeom ' maskName ' ' fileName ' -d']);
