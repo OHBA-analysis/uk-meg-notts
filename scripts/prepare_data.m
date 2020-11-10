@@ -105,4 +105,8 @@ end
 T = T_all_new;
 save([dirs.vars '/prepFiles'], 'prepFiles', 'T', '-v7.3');
 
-clear preprocFiles X T T_all options ans data e elmsg i nSubjects;
+% Save the PCA weights
+W = options.A;
+save([dirs.prepData '/pca_weights'], 'W', '-v7.3');
+
+clear preprocFiles X T T_all options ans data e elmsg i nSubjects W;
