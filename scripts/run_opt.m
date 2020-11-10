@@ -60,7 +60,7 @@ if opt.epoch.do
         opt.epoch.trialdef(i).conditionlabel = session.eventTypes{i};
         opt.epoch.trialdef(i).eventtype      = session.eventTypes{i};
         opt.epoch.trialdef(i).eventvalue     = 1;
-        opt.epoch.time_range                 = session.eventTimeRange{i};
+        opt.epoch.time_range                 = session.eventTimeRange;
     end
     opt.outliers.do                  = true;
     opt.outliers.outlier_measure_fns = {'std'};
