@@ -18,12 +18,12 @@ switch session.name
         session.eventTimeRange = [-4 4];
     case 'vms'
         session.dsFiles        = '*VisMotor_Short*.ds';
-        session.spmFile        = '_vml.mat';
+        session.spmFile        = '_vms.mat';
         session.eventTypes     = {'Abduction', 'Stim_Onset'};
         session.eventTimeRange = [-4 4];
     case 'vml'
         session.dsFiles        = '*VisMotor_Long*.ds';
-        session.spmFile        = '_vms.mat';
+        session.spmFile        = '_vml.mat';
         session.eventTypes     = {'Abduction', 'Stim_Onset'};
         session.eventTimeRange = [-4 4];
 end
