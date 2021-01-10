@@ -20,6 +20,7 @@ options = rmfield(options, 'pca');
 [hmm, Gamma, ~, vpath] = hmmmar(prepFiles, T, options);
 hmm.Gamma = Gamma;
 hmm.vpath = vpath;
+hmm.T = T;
 save([dirs.results '/hmm.mat'], 'hmm', '-v7.3');
 
 clear prepFiles T options hmm Gamma vpath;
