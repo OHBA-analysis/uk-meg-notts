@@ -52,8 +52,8 @@ hmm_options.initcyc = 10;
 hmm_options.initrep = 3;
 
 % Stochastic learning options
-hmm_options.BIGNinitbatch = 5;
-hmm_options.BIGNbatch = 5;
+hmm_options.BIGNinitbatch = 5; % must be less than the number of subjects
+hmm_options.BIGNbatch = 5; % must be less than the number of subjects
 hmm_options.BIGtol = 1e-7;
 hmm_options.BIGcyc = 500;
 hmm_options.BIGundertol_tostop = 5;
@@ -61,7 +61,7 @@ hmm_options.BIGdelay = 5;
 hmm_options.BIGforgetrate = 0.7;
 hmm_options.BIGbase_weights = 0.9;
 
-%hmm_options.useParallel = false;
+hmm_options.useParallel = false;
 
 % Directories
 dirs.work    = pwd;

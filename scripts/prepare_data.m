@@ -96,7 +96,8 @@ for i = 1:nSubjects
     data = cell(1, 1);
     data{1} = preprocFiles{i};
     T = cell(1, 1);
-    T{1} = T_all{i};
+    %T{1} = T_all{i}; % account for discontinuities in the time series
+    T{1} = sum(T_all{i}); % pretend the entire time series is continuous
     [X,~,~,T] = loadfile(data, T, options); % loadfile does the time embedding and PCA
     prepFiles{i} = [dirs.prepData '/subject' num2str(i) '.mat'];
     save(prepFiles{i}, 'X', 'T');
