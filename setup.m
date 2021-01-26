@@ -30,7 +30,7 @@ end
 
 % HMM settings
 freqRange   = [1 45];
-nEmbeddings = 13; % must be an odd number
+nEmbeddings = 15; % must be an odd number
 nStates     = 12;
 nSubjectsToDo = 45;
 
