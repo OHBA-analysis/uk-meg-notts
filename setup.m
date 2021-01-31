@@ -67,8 +67,8 @@ hmm_options.useParallel = false;
 dirs.work    = pwd;
 dirs.vars    = [dirs.work '/variables'];
 
-dirs.data        = '/ohba/pi/mwoolrich/cgohil/uk_meg_notts';
-dirs.rawData     = '/ohba/pi/mwoolrich/datasets/uk_meg_notts/uk_meg/raw_data';
+dirs.rawData     = '/well/woolrich/shared/uk_meg_notts/raw_data';
+dirs.data        = ['/well/woolrich/shared/uk_meg_notts/' session.name];
 dirs.spm         = [dirs.data '/spm'];
 dirs.sess        = [dirs.data '/sessions'];
 dirs.nii         = [dirs.data '/nii'];

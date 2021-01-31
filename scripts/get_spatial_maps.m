@@ -7,7 +7,7 @@ load([dirs.results '/fitMt'], 'fitMtGroupFactWb', 'fitMtGroupFact4b');
 load([dirs.results '/hmm'], 'hmm');
 
 % Setup workbench
-workbenchDir = '/home/cgohil/matlab/workbench/bin_rh_linux64';
+workbenchDir = '/well/woolrich/shared/software/workbench/bin_rh_linux64';
 path1 = getenv('PATH');
 if ~contains(path1, workbenchDir)
     path1 = [path1 ':' workbenchDir];
