@@ -75,9 +75,16 @@ dirs.nii         = [dirs.data '/nii'];
 dirs.bf          = [dirs.data '/bf'];
 dirs.preprocData = [dirs.data '/preproc_data'];
 dirs.prepData    = [dirs.data '/prepared_data'];
-
 dirs.results     = [dirs.data '/results/nSubjects-' num2str(nSubjectsToDo) '_K-' num2str(hmm_options.K)];
 %dirs.results     = [dirs.data '/results/nSubjects-' num2str(nSubjectsToDo) '_K-' num2str(hmm_options.K) '_hold-out'];
+
+warning('off', 'MATLAB:MKDIR:DirectoryExists');
+mkdir(dirs.spm)
+mkdir(dirs.sess)
+mkdir(dirs.nii)
+mkdir(dirs.bf)
+mkdir(dirs.preprocData)
+mkdir(dirs.prepData)
 mkdir(dirs.results)
 
 disp('using directories:');
