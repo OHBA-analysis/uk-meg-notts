@@ -18,7 +18,6 @@ split_into_sessions;
 run_beamforming;
 run_parcellation;
 fix_dipole_sign;
-save_preprocessed_data;
 
 %
 % Prepare data for the HMM (time embedding and PCA)
