@@ -6,7 +6,7 @@ load([dirs.vars '/rawDataFiles'], 'ctfFiles', 'posFiles');
 
 spmFiles = cell(nSubjects, 1);
 for i = 1:nSubjects
-    spmFiles{i} = [dirs.spm '/' subjects{i} session.spmFile];
+    spmFiles{i} = [dirs.spm '/' subjects{i} '.mat'];
 end
 save([dirs.vars '/spmFiles'], 'spmFiles');
 

@@ -70,7 +70,6 @@ else
 end
 
 % Run OPT
-%opt = opt_consolidate_results(opt);
 opt = osl_run_opt(opt);
 
 clear nSubjects niiFiles spmFiles optName i D S nEventTypes opt ans;

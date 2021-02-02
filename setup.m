@@ -4,26 +4,22 @@
 addpath([pwd '/scripts']);
 
 % Session specific settings
-session.name = 'eo'; % eo, vmg, vms, vml
+session.name = 'vml'; % eo, vmg, vms, vml
 switch session.name
     case 'eo'
         session.dsFiles        = '*Eyes_Open*.ds';
-        session.spmFile        = '_eo.mat';
         session.eventTypes     = [];
         session.eventTimeRange = [-10 10];
     case 'vmg'
         session.dsFiles        = '*VisMotor_Gamma*.ds';
-        session.spmFile        = '_vmg.mat';
         session.eventTypes     = {'Abduction', 'Stim_Onset'};
         session.eventTimeRange = [-4 4];
     case 'vms'
         session.dsFiles        = '*VisMotor_Short*.ds';
-        session.spmFile        = '_vms.mat';
         session.eventTypes     = {'Abduction', 'Stim_Onset'};
         session.eventTimeRange = [-4 4];
     case 'vml'
         session.dsFiles        = '*VisMotor_Long*.ds';
-        session.spmFile        = '_vml.mat';
         session.eventTypes     = {'Abduction', 'Stim_Onset'};
         session.eventTimeRange = [-4 4];
 end
