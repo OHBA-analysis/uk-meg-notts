@@ -5,7 +5,7 @@ load([dirs.vars '/subjectInfo'], 'nSubjects');
 load([dirs.vars '/niiFiles'],    'niiFiles')
 load([dirs.vars '/spmFiles'],    'spmFiles');
 
-optName = [session.name '240520'];
+optName = '240520';
 save([dirs.vars '/optName'], 'optName');
 
 % Label artefact channels

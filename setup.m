@@ -65,13 +65,14 @@ hmm_options.useParallel = false;
 
 % Directories
 dirs.work    = pwd;
-dirs.vars    = [dirs.work '/variables'];
+dirs.vars    = [dirs.work '/variables/' session.name];
 
-dirs.rawData     = '/well/woolrich/shared/uk_meg_notts/raw_data';
-dirs.data        = ['/well/woolrich/shared/uk_meg_notts/' session.name];
+dirs.base        = '/well/woolrich/shared/uk_meg_notts';
+dirs.rawData     = [dirs.base '/raw_data'];
+dirs.data        = [dirs.base '/' session.name];
 dirs.spm         = [dirs.data '/spm'];
-dirs.sess        = [dirs.data '/sessions'];
 dirs.nii         = [dirs.data '/nii'];
+dirs.sess        = [dirs.data '/sessions'];
 dirs.bf          = [dirs.data '/bf'];
 dirs.preprocData = [dirs.data '/preproc_data'];
 dirs.prepData    = [dirs.data '/prepared_data'];
@@ -79,13 +80,14 @@ dirs.results     = [dirs.data '/results/nSubjects-' num2str(nSubjectsToDo) '_K-'
 %dirs.results     = [dirs.data '/results/nSubjects-' num2str(nSubjectsToDo) '_K-' num2str(hmm_options.K) '_hold-out'];
 
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
-mkdir(dirs.spm)
-mkdir(dirs.sess)
-mkdir(dirs.nii)
-mkdir(dirs.bf)
-mkdir(dirs.preprocData)
-mkdir(dirs.prepData)
-mkdir(dirs.results)
+mkdir(dirs.vars);
+mkdir(dirs.spm);
+mkdir(dirs.nii);
+mkdir(dirs.sess);
+mkdir(dirs.bf);
+mkdir(dirs.preprocData);
+mkdir(dirs.prepData);
+mkdir(dirs.results);
 
 disp('using directories:');
 disp(dirs);
