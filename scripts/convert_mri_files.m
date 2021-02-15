@@ -5,7 +5,7 @@ load([dirs.vars '/subjectInfo'],  'subjects', 'nSubjects');
 load([dirs.vars '/rawDataFiles'], 'mriFiles');
 
 % MRI conversions need freesurfer
-addpath('/well/woolrich/shared/software/freesurfer/matlab')
+addpath('/well/woolrich/projects/software/freesurfer/matlab')
 
 niiFiles = cell(nSubjects, 1);
 for i = 1:nSubjects
