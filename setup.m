@@ -9,11 +9,10 @@ switch session.name
     case 'eo'
         session.dsFiles        = '*Eyes_Open*.ds';
         session.eventTypes     = [];
-        session.eventTimeRange = [-10 10];
     case 'vmg'
         session.dsFiles        = '*VisMotor_Gamma*.ds';
         session.eventTypes     = {'Abduction', 'Stim_Onset'};
-        session.eventTimeRange = [-4 4];
+        session.eventTimeRange = [-10 10];
     case 'vms'
         session.dsFiles        = '*VisMotor_Short*.ds';
         session.eventTypes     = {'Abduction', 'Stim_Onset'};
@@ -21,7 +20,7 @@ switch session.name
     case 'vml'
         session.dsFiles        = '*VisMotor_Long*.ds';
         session.eventTypes     = {'Abduction', 'Stim_Onset'};
-        session.eventTimeRange = [-4 4];
+        session.eventTimeRange = [-10 10];
 end
 
 % HMM settings
