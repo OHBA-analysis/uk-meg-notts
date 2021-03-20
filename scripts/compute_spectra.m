@@ -39,4 +39,4 @@ for n = 1:length(preprocFiles)
 end
 save([dirs.results '/fitMt'], 'fitMtSubject', 'fitMt');
 
-clear preprocFiles X T hmm optionsMt fitMt d acc n gamma fitMtSubject;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

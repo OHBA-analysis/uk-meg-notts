@@ -9,4 +9,4 @@ for i = 1:nSubjects
     waitfor(gcf)
 end
 
-clear spmFiles i D;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

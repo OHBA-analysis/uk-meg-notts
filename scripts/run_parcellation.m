@@ -54,5 +54,4 @@ end
 save([dirs.vars '/parcSettings'], 'parcS');
 save([dirs.vars '/parcFiles'],    'parcFiles');
 
-clear nSessions bfFiles maskFile parcName orthogonalisation i parcS parcFile ...
-      parcPrefix parcFiles parcD parcWeights parcAssignments ans;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

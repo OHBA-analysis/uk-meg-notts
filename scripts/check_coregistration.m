@@ -21,4 +21,4 @@ for i = 1:nSubjects
     osl_forward_model(S);
 end
 
-clear opt i D S;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

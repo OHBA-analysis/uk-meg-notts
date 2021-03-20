@@ -116,4 +116,4 @@ save([dirs.vars '/prepFiles'], 'prepFiles', 'T', '-v7.3');
 W = options.A;
 save([dirs.prepData '/pca_components'], 'W', '-v7.3');
 
-clear preprocFiles X T T_all options ans data e elmsg i nSubjects W;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

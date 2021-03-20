@@ -21,4 +21,4 @@ for i = 1:nSessions
 end
 save([dirs.vars '/sessionInfo'], 'nSessions', 'sessionSpmFiles', 'spmLinks');
 
-clear opt nSessions sessionSpmFiles spmLinks i optName S ans;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

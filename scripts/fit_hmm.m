@@ -23,4 +23,4 @@ hmm.vpath = vpath;
 hmm.T = T;
 save([dirs.results '/hmm.mat'], 'hmm', '-v7.3');
 
-clear prepFiles T options hmm Gamma vpath;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

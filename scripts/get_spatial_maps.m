@@ -54,5 +54,4 @@ for fr = 1:3
                  'interptype', 'trilinear', 'visualise', false)
 end
 
-clear maskFile parcS hmm workbenchDir path1 mask res xform parcFile spatialMap ...
-      j mapFile map k psd fr;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

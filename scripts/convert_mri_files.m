@@ -20,4 +20,4 @@ for i = 1:nSubjects
     convert_mri(mriFiles{i}, niiFiles{i});
 end
 
-clear subjects nSubjects mriFiles niiFiles i;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

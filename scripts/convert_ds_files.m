@@ -44,5 +44,4 @@ for i = 1:nSubjects
     D.save;
 end
 
-clear subjects nSubjects ctfFiles posFiles spmFiles i S D posFile ...
-      fiducialData fiducialIndices headShapeIndices newFiducials ans;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

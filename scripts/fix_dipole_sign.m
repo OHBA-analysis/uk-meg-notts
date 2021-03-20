@@ -27,4 +27,4 @@ options.verbose = 1;
 flips = findflip(preprocFiles, T, options);
 flipdata(preprocFiles, T, flips);
 
-clear parcFiles nSubjects preprocFiles i t T options;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

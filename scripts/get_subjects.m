@@ -35,7 +35,7 @@ nSubjects = length(subjects);
 save([dirs.vars '/subjectInfo'],  'subjects', 'nSubjects');
 save([dirs.vars '/rawDataFiles'], 'ctfFiles', 'mriFiles', 'posFiles');
 
-clear i subjects nSubjects ctfFiles mriFiles posFiles removeSubjectIndices;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;
 
 function filePath = add_if_exists(filePath)
     file = dir(filePath);

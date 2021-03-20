@@ -72,4 +72,4 @@ end
 % Run OPT
 opt = osl_run_opt(opt);
 
-clear nSubjects niiFiles spmFiles optName i D S nEventTypes opt ans;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

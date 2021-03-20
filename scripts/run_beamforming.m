@@ -39,4 +39,4 @@ end
 save([dirs.vars '/bfFiles'],   'bfFiles');
 save([dirs.vars '/maskFile'],  'maskFile');
 
-clear nSessions sessionSpmFiles spmLinks maskFile mniCoords i S D newD bfFiles ans;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

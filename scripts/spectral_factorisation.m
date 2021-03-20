@@ -48,6 +48,4 @@ saveas(fig, [dirs.results '/profiles.png']);
 %significantSpectra = spectsignificance(testsSpectra, 0.01);
 %save([dirs.results '/fitMt'], 'testsSpectra', 'significantSpectra', '-append')
 
-clear preprocFiles fitMtSubject optionsFact fitMtGroupFact4b spProfiles4b ...
-      fitMtSubjectFact4b fitMtGroupFactWb spProfilesWb fitMtSubjectFactWb ...
-      fig fitMtSubjectFact1d testSpectra significantSpectra;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;

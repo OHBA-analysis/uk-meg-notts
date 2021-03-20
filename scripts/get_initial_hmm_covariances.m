@@ -23,4 +23,4 @@ options.cyc = 1;
 [hmm, Gamma, ~, vpath] = hmmmar(prepFiles, T, options);
 save([dirs.results '/hmm_cyc-1.mat'], 'hmm', '-v7.3');
 
-clear prepFiles T options hmm;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;
