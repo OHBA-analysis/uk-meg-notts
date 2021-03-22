@@ -62,7 +62,7 @@ hmm_options.useParallel = false;
 dirs.work    = pwd;
 dirs.vars    = [dirs.work '/variables/' session.name];
 
-dirs.base        = '/well/woolrich/shared/uk_meg_notts';
+dirs.base        = '/well/woolrich/projects/uk_meg_notts';
 dirs.rawData     = [dirs.base '/raw_data'];
 dirs.data        = [dirs.base '/' session.name];
 dirs.spm         = [dirs.data '/spm'];
