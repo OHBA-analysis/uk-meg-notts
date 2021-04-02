@@ -5,7 +5,7 @@ load([dirs.vars '/subjectInfo'], 'nSubjects');
 load([dirs.vars '/niiFiles'],    'niiFiles')
 load([dirs.vars '/spmFiles'],    'spmFiles');
 
-optName = '240520';
+optName = 'preproc';
 save([dirs.vars '/optName'], 'optName');
 
 % Label artefact channels

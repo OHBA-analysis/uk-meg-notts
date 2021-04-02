@@ -4,7 +4,7 @@
 addpath([pwd '/scripts']);
 
 % Session specific settings
-session.name = 'vml'; % eo, vmg, vms, vml
+session.name = 'eo'; % eo, vmg, vms, vml
 switch session.name
     case 'eo'
         session.dsFiles        = '*Eyes_Open*.ds';
