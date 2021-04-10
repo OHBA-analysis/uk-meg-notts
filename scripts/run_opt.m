@@ -30,10 +30,10 @@ opt.downsample.freq = 250;
 % Highpass and notch filtering
 opt.highpass.do     = 1;
 opt.highpass.cutoff = 0.1;
-opt.mains.do        = 0;
+opt.mains.do        = 1;
 
 % AFRICA denoising
-%opt.africa.do          = 1;
+opt.africa.do          = 1;
 opt.africa.todo.ica    = 0;
 opt.africa.todo.ident  = 0;
 opt.africa.todo.remove = 0;
@@ -42,9 +42,10 @@ opt.africa.ident.kurtosis_wthresh       = 0.2;
 opt.africa.ident.max_num_artefact_comps = 2;
 opt.africa.precompute_topos             = 1;
 
+% Bad segment removal
 nEventTypes = length(session.eventTypes);
 opt.bad_segments.do = ~(nEventTypes > 0);
-opt.bad_segments.event_significance = 0.05;
+%opt.bad_segments.event_significance = 0.05;
 
 % Coregistration
 opt.coreg.do           = true;
