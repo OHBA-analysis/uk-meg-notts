@@ -4,10 +4,8 @@
 load([dirs.vars '/prepFiles'], 'prepFiles', 'T');
 
 % Only use first nSubjectsToDo data files
-prepFiles = prepFiles(1:nSubjectsToDo);
-T = T(1:nSubjectsToDo);
-%prepFiles = prepFiles(end-nSubjectsToDo+1:end);
-%T = T(end-nSubjectsToDo+1:end);
+prepFiles = prepFiles(firstSubject:firstSubject + nSubjectsToDo - 1);
+T = T(firstSubject:firstSubject + nSubjectsToDo - 1);
 
 % HMM options (see setup.m)
 options = hmm_options;
@@ -43,4 +41,4 @@ for i = 1:nSubjectsToDo
 end
 save([dirs.results '/obs_fixed_gamma.mat'], 'gamma', '-v7.3');
 
-clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo firstSubject session;

@@ -54,4 +54,4 @@ for fr = 1:3
                  'interptype', 'trilinear', 'visualise', false)
 end
 
-clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo firstSubject session;

@@ -39,4 +39,4 @@ end
 save([dirs.vars '/bfFiles'],   'bfFiles');
 save([dirs.vars '/maskFile'],  'maskFile');
 
-clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo firstSubject session;

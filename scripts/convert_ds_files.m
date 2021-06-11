@@ -44,4 +44,4 @@ for i = 1:nSubjects
     D.save;
 end
 
-clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo firstSubject session;

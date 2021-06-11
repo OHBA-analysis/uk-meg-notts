@@ -6,8 +6,7 @@ load([dirs.vars '/preprocFiles'], 'preprocFiles');
 load([dirs.results '/fitMt'], 'fitMtSubject');
 load([dirs.results '/hmm'], 'hmm');
 
-preprocFiles = preprocFiles(1:nSubjectsToDo);
-%preprocFiles = preprocFiles(end-nSubjectsToDo+1:end);
+preprocFiles = preprocFiles(firstSubject:firstSubject + nSubjectsToDo - 1);
 
 % Get the three bands depicted in the paper (the 4th is essentially capturing noise)
 optionsFact = struct();
@@ -48,4 +47,4 @@ saveas(fig, [dirs.results '/profiles.png']);
 %significantSpectra = spectsignificance(testsSpectra, 0.01);
 %save([dirs.results '/fitMt'], 'testsSpectra', 'significantSpectra', '-append')
 
-clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo firstSubject session;

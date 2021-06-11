@@ -21,4 +21,4 @@ for i = 1:nSessions
 end
 save([dirs.vars '/sessionInfo'], 'nSessions', 'sessionSpmFiles', 'spmLinks');
 
-clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo firstSubject session;

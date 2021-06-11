@@ -4,10 +4,8 @@
 load([dirs.vars '/preprocFiles'], 'preprocFiles', 'T');
 load([dirs.results '/hmm'], 'hmm')
 
-preprocFiles = preprocFiles(1:nSubjectsToDo);
-T = T(1:nSubjectsToDo);
-%preprocFiles = preprocFiles(end-nSubjectsToDo+1:end);
-%T = T(end-nSubjectsToDo+1:end);
+preprocFiles = preprocFiles(firstSubject:firstSubject + nSubjectsToDo - 1);
+T = T(firstSubject:firstSubject + nSubjectsToDo - 1);
 
 optionsMt = struct();
 optionsMt.Fs = 250; % Sampling rate
@@ -39,4 +37,4 @@ for n = 1:length(preprocFiles)
 end
 save([dirs.results '/fitMt'], 'fitMtSubject', 'fitMt');
 
-clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo session;
+clearvars -except dirs freqRange hmm_options nEmbeddings nStates nSubjectsToDo firstSubject session;

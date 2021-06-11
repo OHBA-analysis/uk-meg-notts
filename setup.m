@@ -23,11 +23,12 @@ switch session.name
         session.eventTimeRange = [-10 10];
 end
 
-% HMM settings
-freqRange   = [1 45];
-nEmbeddings = 15; % must be an odd number
-nStates     = 12;
-nSubjectsToDo = 45;
+% Settings
+freqRange     = [1 45];
+nEmbeddings   = 15; % must be an odd number
+nStates       = 12;
+nSubjectsToDo = 55;
+firstSubject  = 1;
 
 hmm_options = struct();
 hmm_options.order = 0;
@@ -73,6 +74,7 @@ dirs.preprocData = [dirs.data '/preproc_data'];
 dirs.prepData    = [dirs.data '/prepared_data'];
 dirs.results     = [dirs.data '/results/nSubjects-' num2str(nSubjectsToDo) '_K-' num2str(hmm_options.K)];
 %dirs.results     = [dirs.data '/results/nSubjects-' num2str(nSubjectsToDo) '_K-' num2str(hmm_options.K) '_hold-out'];
+%dirs.results     = [dirs.data '/results/split_half_2/nSubjects-' num2str(nSubjectsToDo) '_K-' num2str(hmm_options.K)];
 
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
 mkdir(dirs.vars);
