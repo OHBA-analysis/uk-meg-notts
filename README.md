@@ -1,10 +1,15 @@
 # uk-meg-notts
 
-Scripts to fit an HMM to MEG data using OSL.
+Scripts to fit an HMM to the uk_meg_notts dataset using OSL.
 
-Example use:
+Full pipeline:
 ```
 matlab -nodesktop
 >> osl_startup;
->> run_full_pipeline;
+>> convert_raw_data;
+>> preprocess_data;
+>> source_reconstruct;
+>> prepare_data;
+>> fit_hmm;
+>> analyse_hmm_fit;
 ```
