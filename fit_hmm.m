@@ -80,9 +80,10 @@ prepT     = prepT(firstSubject:lastSubject);
 % Fit an HMM
 %
 [hmm, Gamma, ~, vpath] = hmmmar(prepFiles, prepT, options);
-hmm.Gamma = Gamma;
-hmm.vpath = vpath;
-hmm.T     = prepT;
+hmm.Gamma   = Gamma;
+hmm.vpath   = vpath;
+hmm.T       = prepT;
+hmm.options = options;
 
 save([dirs.results '/hmm.mat'], 'hmm', '-v7.3');
 

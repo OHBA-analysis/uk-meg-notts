@@ -42,6 +42,7 @@ end
 
 srcRecFiles = srcRecFiles(firstSubject:lastSubject);
 srcRecT     = srcRecT(firstSubject:lastSubject);
+nSubjects   = length(srcRecFiles);
 
 %
 % Compute spectra
@@ -75,7 +76,7 @@ for i = 1:nSubjects
     fitMtSubject{i}.state = rmfield(fitMtSubject{i}.state, 'pcoh');
     fitMtSubject{i}.state = rmfield(fitMtSubject{i}.state, 'phase');
 end
-save([dirs.results '/fitMt'], 'fitMtSubject', 'fitMt');
+save([dirs.results '/fitMt'], 'fitMtSubject', 'fitMt', '-v7.3');
 
 %
 % Spectral factorisation

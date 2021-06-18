@@ -7,6 +7,14 @@
 
 % Session info
 session.name = 'eo'; % eo, vmg, vms, vml
+if strcmp(session.name, 'eo')
+    session.optPrefix = 'Bffd';
+else
+    session.optPrefix = 'Reffd';
+end
+
+disp('session info:')
+disp(session)
 
 % Directories
 dirs.base   = ['/well/woolrich/projects/uk_meg_notts/' session.name];
@@ -22,7 +30,7 @@ disp(dirs);
 %
 % Get preprocessed data
 %
-fileArray = dir([dirs.opt '/Bffd*.mat']);
+fileArray = dir([dirs.opt '/' session.optPrefix '*.mat']);
 nSubjects = length(fileArray);
 
 optSpmFiles = cell(nSubjects, 1);
