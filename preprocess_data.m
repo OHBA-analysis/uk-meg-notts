@@ -3,7 +3,7 @@
 %
 
 % Session info
-session.name = 'vml'; % eo, vmg, vms, vml
+session.name = 'eo'; % eo, vmg, vms, vml
 switch session.name
     case 'eo'
         session.eventTypes     = [];
@@ -111,11 +111,5 @@ end
 
 % Run OPT
 opt = osl_run_opt(opt);
-
-% Save preprocessed data as mat files
-for i = 1:length(opt.results.spm_files)
-    matFile = [dirs.preproc '.opt/subject' num2str(i) '.mat'];
-    read_spm_file(opt.results.spm_files{i}, matFile);
-end
 
 clear;
