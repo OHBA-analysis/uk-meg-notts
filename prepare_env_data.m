@@ -4,6 +4,11 @@
 
 % Session info
 session.name = 'eo'; % eo, vmg, vms, vml
+if strcmp(session.name, 'eo')
+    session.optPrefix = 'Bffd';
+else
+    session.optPrefix = 'Reffd';
+end
 
 % Directories
 dirs.base   = ['/well/woolrich/projects/uk_meg_notts/' session.name];
@@ -19,7 +24,7 @@ disp(dirs);
 %
 % Get source reconstructed data
 %
-fileArray  = dir([dirs.srcRec '/subject*.mat']);
+fileArray  = dir([dirs.srcRec '/pBFf' session.optPrefix '*.mat']);
 nSubjects = length(fileArray);
 
 srcRecFiles = cell(nSubjects, 1);
@@ -30,7 +35,7 @@ end
 %
 % Prepare data
 %
-for i = 1:nSubject
+for i = 1:nSubjects
     fprintf('\nhilbert transforming session %d\n', i);
     fprintf('=================================\n');
 
@@ -45,7 +50,7 @@ for i = 1:nSubject
 end
 
 % Save as mat files
-for i = 1:nSessions
+for i = 1:nSubjects
     disp(['Saving subject ' num2str(i)]);
     [filepath, filename, ext] = fileparts(srcRecFiles{i});
     spmFile = [dirs.srcRec '/' S.prefix filename];
