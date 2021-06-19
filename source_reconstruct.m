@@ -19,7 +19,7 @@ disp(session)
 % Directories
 dirs.base   = ['/well/woolrich/projects/uk_meg_notts/' session.name];
 dirs.opt    = [dirs.base '/preproc.opt'];
-dirs.srcRec = [dirs.base '/natcomms18/src_rec'];
+dirs.srcRec = [dirs.base '/summer21/src_rec'];
 
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
 mkdir(dirs.srcRec);
@@ -43,7 +43,8 @@ end
 %
 maskFile  = [osldir '/std_masks/MNI152_T1_8mm_brain.nii.gz'];
 mniCoords = osl_mnimask2mnicoords(maskFile);
-parcFile  = [osldir '/parcellations/fmri_d100_parcellation_with_3PCC_ips_reduced_2mm_ss5mm_ds8mm_adj.nii.gz'];
+%parcFile  = [osldir '/parcellations/fmri_d100_parcellation_with_3PCC_ips_reduced_2mm_ss5mm_ds8mm_adj.nii.gz'];
+parcFile  = [osldir '/parcellations/fmri_d100_parcellation_with_PCC_reduced_2mm_ss5mm_ds8mm.nii.gz'];
 
 filtPrefix = 'f';
 bfPrefix   = 'BF';
@@ -66,7 +67,7 @@ for i = 1:nSubjects
 
     S        = struct();
     S.band   = 'bandpass';
-    S.freq   = [1 98];
+    S.freq   = [1 30];
     S.prefix = filtPrefix;
     S.D      = [dirs.srcRec '/' filename ext];
 
@@ -123,17 +124,18 @@ for i = 1:nSubjects
 end
 
 % Fix dipole sign ambiguity
-fprintf('\nFixing dipole sign ambiguity\n');
+%fprintf('\nFixing dipole sign ambiguity\n');
 
-S         = struct();
-S.maxlag  = 7;
-s.verbose = 1;
+%S         = struct();
+%S.maxlag  = 7;
+%s.verbose = 1;
 
-flips = findflip(matFiles, T, S);
-flipdata(matFiles, T, flips, [], 1);
+%flips = findflip(matFiles, T, S);
+%flipdata(matFiles, T, flips, [], 1);
 
-dipoleOptions = S;
+%dipoleOptions = S;
 
-save([dirs.srcRec '/options'], 'bandpassOptions', 'beamformingOptions', 'parcellationOptions', 'dipoleOptions');
+%save([dirs.srcRec '/options'], 'bandpassOptions', 'beamformingOptions', 'parcellationOptions', 'dipoleOptions');
+save([dirs.srcRec '/options'], 'bandpassOptions', 'beamformingOptions', 'parcellationOptions');
 
 clear;
