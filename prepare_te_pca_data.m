@@ -6,7 +6,7 @@
 %
 
 % Session info
-session.name = 'eo'; % eo, vmg, vms, vml
+session.name = 'vml'; % eo, vmg, vms, vml
 
 % Directories
 dirs.base   = ['/well/woolrich/projects/uk_meg_notts/' session.name];
@@ -32,13 +32,11 @@ options.BIGNbatch = 1;
 %
 % Get source reconstructed data
 %
-fileArray  = dir([dirs.srcRec '/subject*.mat']);
-nSubjects = length(fileArray);
-
+nSubjects   = length(dir([dirs.srcRec '/subject*.mat']));
 srcRecFiles = cell(nSubjects, 1);
 T           = cell(nSubjects, 1);
 for i = 1:nSubjects
-    srcRecFiles{i} = [fileArray(i).folder '/' fileArray(i).name];
+    srcRecFiles{i} = [dirs.srcRec '/subject' num2str(i) '.mat'];
     data = load(srcRecFiles{i});
     T{i} = data.T;
 end

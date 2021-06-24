@@ -3,12 +3,12 @@
 %
 
 % Session info
-session.name = 'eo'; % eo, vmg, vms, vml
+session.name = 'vml'; % eo, vmg, vms, vml
 
 % Directories
 dirs.base    = ['/well/woolrich/projects/uk_meg_notts/' session.name];
 dirs.prep    = [dirs.base '/natcomms18/prepared_data'];
-dirs.results = [dirs.base '/natcomms18/results/Subj1-55_K-12'];
+dirs.results = [dirs.base '/natcomms18/results/Subj1-1_K-6'];
 
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
 mkdir(dirs.results);
@@ -22,6 +22,8 @@ params       = regexp(splitDir{end}, '\d*', 'Match');
 firstSubject = str2num(params{1});
 lastSubject  = str2num(params{2});
 nStates      = str2num(params{3});
+nSubjects    = lastSubject - firstSubject + 1;
+
 
 % Fit to time-embedded, PCA data
 options          = struct();
@@ -48,8 +50,8 @@ options.verbose  = 1;
 %options.verbose  = 1;
 
 % Stochastic learning options
-options.BIGNinitbatch      = 5; % must be less than the number of subjects
-options.BIGNbatch          = 5; % must be less than the number of subjects
+options.BIGNinitbatch      = 4; % must be less than the number of subjects
+options.BIGNbatch          = 4; % must be less than the number of subjects
 options.BIGtol             = 1e-7;
 options.BIGcyc             = 500;
 options.BIGundertol_tostop = 5;
@@ -62,19 +64,13 @@ options.useParallel = false;
 %
 % Get prepared data
 %
-fileArray = dir([dirs.prep '/subject*.mat']);
-nSubjects = length(fileArray);
-
 prepFiles = cell(nSubjects, 1);
 prepT     = cell(nSubjects, 1);
 for i = 1:nSubjects
-    prepFiles{i} = [fileArray(i).folder '/' fileArray(i).name];
+    prepFiles{i} = [dirs.prep '/subject' num2str(i) '.mat'];
     data = load(prepFiles{i});
     prepT{i} = data.T;
 end
-
-prepFiles = prepFiles(firstSubject:lastSubject);
-prepT     = prepT(firstSubject:lastSubject);
 
 %
 % Fit an HMM

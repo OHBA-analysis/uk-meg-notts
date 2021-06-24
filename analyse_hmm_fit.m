@@ -25,24 +25,18 @@ params       = regexp(splitDir{end}, '\d*', 'Match');
 firstSubject = str2num(params{1});
 lastSubject  = str2num(params{2});
 nStates      = str2num(params{3});
+nSubjects    = lastSubject - firstSubject + 1;
 
 %
 % Get source reconstructed data
 %
-fileArray = dir([dirs.srcRec '/subject*.mat']);
-nSubjects = length(fileArray);
-
 srcRecFiles = cell(nSubjects, 1);
 srcRecT     = cell(nSubjects, 1);
 for i = 1:nSubjects
-    srcRecFiles{i} = [fileArray(i).folder '/' fileArray(i).name];
+    srcRecFiles{i} = [dirs.srcRec '/subject' num2str(i) '.mat'];
     data = load(srcRecFiles{i});
     srcRecT{i} = data.T;
 end
-
-srcRecFiles = srcRecFiles(firstSubject:lastSubject);
-srcRecT     = srcRecT(firstSubject:lastSubject);
-nSubjects   = length(srcRecFiles);
 
 %
 % Compute spectra
