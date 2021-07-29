@@ -55,6 +55,7 @@ options.embeddedlags = -7:7;
 fprintf('Computing spectra for all subjects\n');
 
 fitMt = hmmspectramt(srcRecFiles, srcRecT, hmm.Gamma, options);
+save([dirs.results '/fitMt'], 'fitMt', '-v7.3');
 
 % Subject level
 fitMtSubject = cell(nSubjects, 1);
@@ -70,7 +71,7 @@ for i = 1:nSubjects
     fitMtSubject{i}.state = rmfield(fitMtSubject{i}.state, 'pcoh');
     fitMtSubject{i}.state = rmfield(fitMtSubject{i}.state, 'phase');
 end
-save([dirs.results '/fitMt'], 'fitMtSubject', 'fitMt', '-v7.3');
+save([dirs.results '/fitMt'], 'fitMtSubject', '-append');
 
 %
 % Spectral factorisation
