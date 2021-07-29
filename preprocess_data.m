@@ -111,5 +111,3 @@ end
 
 % Run OPT
 opt = osl_run_opt(opt);
-
-clear;

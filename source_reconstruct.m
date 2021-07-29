@@ -138,5 +138,3 @@ dipoleOptions = S;
 
 save([dirs.srcRec '/options'], 'bandpassOptions', 'beamformingOptions', 'parcellationOptions', 'dipoleOptions');
 %save([dirs.srcRec '/options'], 'bandpassOptions', 'beamformingOptions', 'parcellationOptions');
-
-clear;

@@ -82,5 +82,3 @@ hmm.T       = prepT;
 hmm.options = options;
 
 save([dirs.results '/hmm.mat'], 'hmm', '-v7.3');
-
-clear;

@@ -151,5 +151,3 @@ end
 % Save the PCA weights
 W = options.A;
 save([dirs.prep '/pca_components'], 'W');
-
-clear;

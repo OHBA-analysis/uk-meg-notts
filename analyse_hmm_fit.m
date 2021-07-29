@@ -156,5 +156,3 @@ for fr = 1:3
     nii.save(matrix2vols(map, mask), res, xform, mapFile);
     osl_render4D([mapFile '.nii.gz'], 'savedir', mapFile, 'interptype', 'trilinear', 'visualise', false)
 end
-
-clear;
