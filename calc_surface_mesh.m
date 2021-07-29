@@ -3,7 +3,7 @@
 %
 
 % Session info
-session.name = 'vml'; % eo, vmg, vms, vml
+session.name = 'eo'; % eo, vmg, vms, vml
 if strcmp(session.name, 'eo')
     session.optPrefix = 'Bffd';
 else
@@ -33,8 +33,8 @@ nSubjects = length(fileArray);
 %
 % Calculate surface mesh
 %
-%for i = 1:nSubjects
-for i = 1:1
+for i = 1:nSubjects
+
     % Copy and load SPM file containing the preprocessed data
     copyfile([fileArray(i).folder '/' fileArray(i).name],[dirs.surfMesh '/' fileArray(i).name]);
     copyfile([fileArray(i).folder '/' fileArray(i).name(1:end-4) '.dat'],[dirs.surfMesh '/' fileArray(i).name(1:end-4) '.dat']);
