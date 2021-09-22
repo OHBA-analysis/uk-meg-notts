@@ -24,7 +24,7 @@ disp(session)
 % Directories
 dirs.base    = ['/well/woolrich/projects/uk_meg_notts/' session.name];
 dirs.raw     = [dirs.base '/raw'];
-dirs.preproc = [dirs.base '/preproc'];
+dirs.preproc = [dirs.base '/preproc_ica'];
 
 disp('using directories:');
 disp(dirs);
@@ -73,9 +73,9 @@ opt.mains.do        = 1;
 
 % AFRICA denoising
 opt.africa.do          = 1;
-opt.africa.todo.ica    = 0;
-opt.africa.todo.ident  = 0;
-opt.africa.todo.remove = 0;
+opt.africa.todo.ica    = 1;
+opt.africa.todo.ident  = 'auto';
+opt.africa.todo.remove = 1;
 opt.africa.ident.func  = @identify_artefactual_components_auto;
 opt.africa.ident.kurtosis_wthresh       = 0.2;
 opt.africa.ident.max_num_artefact_comps = 2;
