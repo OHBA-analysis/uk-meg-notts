@@ -3,7 +3,7 @@
 %
 
 % Session info
-session.name = 'vml'; % eo, vmg, vms, vml
+session.name = 'eo'; % eo, vmg, vms, vml
 switch session.name
     case 'eo'
         session.dsFiles = '*Eyes_Open*.ds';
@@ -72,6 +72,7 @@ for i = 1:nSubjects
 
     S = struct();
     S.outfile = [subjectDirs{i} '/' subjects{i} '.mat'];
+    S.other_channels = {'EEG057', 'EEG058', 'EEG059', 'EEG060'};
     D = osl_import(ctfFiles{i}, S);
 
     % Fiducials
