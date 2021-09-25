@@ -50,7 +50,7 @@ end
 % Label artefact channels
 for i = 1:nSubjects
     D = spm_eeg_load(spmFiles{i});
-    D = D.chantype(find(strcmp(D.chanlabels, 'EEG057')), 'EOG1');
+    D = D.chantype(find(strcmp(D.chanlabels, 'EEG057')), 'EOG');
     D = D.chantype(find(strcmp(D.chanlabels, 'EEG058')), 'EOG2');
     D = D.chantype(find(strcmp(D.chanlabels, 'EEG059')), 'ECG');
     D = D.chantype(find(strcmp(D.chanlabels, 'EEG060')), 'EMG');
