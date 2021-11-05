@@ -6,21 +6,27 @@
 %
 
 % Session info
-session.name = 'vml'; % eo, vmg, vms, vml
+session.name = 'eo'; % eo, vmg, vms, vml
 if strcmp(session.name, 'eo')
     session.optPrefix = 'Bffd';
+    %session.optPrefix = 'BAffd';
 else
     %session.optPrefix = 'Reffd';
-    session.optPrefix = 'ffd';
+    %session.optPrefix = 'ffd';
+    session.optPrefix = 'Affd';
 end
 
 disp('session info:')
 disp(session)
 
+% Data preparation settings
+nEmbeddings = 15;
+
 % Directories
 dirs.base   = ['/well/woolrich/projects/uk_meg_notts/' session.name];
 dirs.opt    = [dirs.base '/preproc.opt'];
-dirs.srcRec = [dirs.base '/natcomms18_' session.optPrefix '/src_rec'];
+%dirs.srcRec = [dirs.base '/natcomms18_ica_' session.optPrefix '/src_rec'];
+dirs.srcRec = [dirs.base '/natcomms18/src_rec'];
 
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
 mkdir(dirs.srcRec);
@@ -50,9 +56,8 @@ parcFile  = [osldir '/parcellations/fmri_d100_parcellation_with_3PCC_ips_reduced
 filtPrefix = 'f';
 bfPrefix   = 'BF';
 parcPrefix = 'p';
+dipPrefix = 'DSF';
 
-matFiles = cell(nSubjects, 1);
-T        = cell(nSubjects, 1);
 for i = 1:nSubjects
 
     % Copy preprocessed data into source reconstruction folder
@@ -113,28 +118,81 @@ for i = 1:nSubjects
     D.save;
 
     parcellationOptions = S;
-
-    % Save source reconstructed data as a mat file
-    fprintf('\nSaving session %d\n', i);
-
-    srcRecFile  = [dirs.srcRec '/' parcPrefix bfPrefix filtPrefix filename ext];
-    matFiles{i} = [dirs.srcRec '/subject' num2str(i) '.mat'];
-    [~, t]      = read_spm_file(srcRecFile, matFiles{i});
-    T{i}        = t;
-
 end
+
+% Parcellated data files
+parcFiles = cell(nSubjects, 1);
+for i = 1:nSubjects
+    [filepath, filename, ext] = fileparts(optSpmFiles{i});
+    parcFiles{i} = [dirs.srcRec '/' parcPrefix bfPrefix filtPrefix filename ext];
+end
+
 
 % Fix dipole sign ambiguity
 fprintf('\nFixing dipole sign ambiguity\n');
 
-S         = struct();
-S.maxlag  = 7;
-s.verbose = 1;
+% Add functions needed by this script to MATLAB path
+addpath('sign_flipping');
 
-flips = findflip(matFiles, T, S);
-flipdata(matFiles, T, flips, [], 1);
+% Establish a good template subject
+S = struct();
+S.concat = struct();
+S.concat.protocol = 'none';
+S.concat.embed.do = 1;
+S.concat.embed.num_embeddings = nEmbeddings;
+S.concat.embed.rectify = false;
+S.concat.whiten = 1;
+S.concat.normalisation = 'voxelwise';
+S.concat.pcadim = -1;
+S.netmat_method = @netmat_cov;
+
+state_netmats_cov_preflipped = hmm_full_global_cov(parcFiles, S);
+
+% Assess which subject is the best template
+state_netmats = state_netmats_cov_preflipped;
+
+modes       = {'none','abs'};
+diag_offset = 15;
+
+metric_global = zeros(length(state_netmats), length(state_netmats), length(modes));
+for mm=1:length(modes)
+    for subj=1:length(state_netmats)
+       for subj2=1:length(state_netmats)
+            if subj2 ~= subj
+                metric_global(subj, subj2, mm) = matrix_distance_metric( ...
+                    state_netmats{subj}.global.netmat_full, ...
+                    state_netmats{subj2}.global.netmat_full, ...
+                    diag_offset,modes{mm}, ...
+                    []);
+            end
+       end
+    end
+end
+
+tmp = sum(metric_global(:,:,2), 2);
+template_subj = nearest(tmp, median(tmp));
+
+% Perform the sign flip
+S = struct();
+S.roinets_protocol = parcellationOptions.orthogonalisation;
+S.innovations_mar_order = parcellationOptions.innovations_mar_order;
+S.Ds = parcFiles;
+S.num_iters = 500;
+S.prefix = dipPrefix;
+S.num_embeddings = nEmbeddings;
+S.subj_template = template_subj;
+[signflipped_files_out, sign_flip_results] = find_sign_flips(S);
 
 dipoleOptions = S;
+
+% Save source reconstructed data as a mat file
+for i = 1:nSubjects
+    fprintf('\nSaving session %d\n', i);
+    [filepath, filename, ext] = fileparts(optSpmFiles{i});
+    srcRecFile  = [dirs.srcRec '/' dipPrefix parcPrefix bfPrefix filtPrefix filename ext];
+    matFile = [dirs.srcRec '/subject' num2str(i) '.mat'];
+    read_spm_file(srcRecFile, matFile);
+end
 
 save([dirs.srcRec '/options'], 'bandpassOptions', 'beamformingOptions', 'parcellationOptions', 'dipoleOptions');
 %save([dirs.srcRec '/options'], 'bandpassOptions', 'beamformingOptions', 'parcellationOptions');
