@@ -3,12 +3,12 @@
 %
 
 % Session info
-session.name = 'vml'; % eo, vmg, vms, vml
+session.name = 'eo'; % eo, vmg, vms, vml
 
 % Directories
 dirs.base    = ['/well/woolrich/projects/uk_meg_notts/' session.name];
 dirs.prep    = [dirs.base '/natcomms18/prepared_data'];
-dirs.results = [dirs.base '/natcomms18/results/Subj1-1_K-6'];
+dirs.results = [dirs.base '/natcomms18/results/Subj1-55_K-8'];
 
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
 mkdir(dirs.results);

@@ -6,7 +6,7 @@
 %
 
 % Session info
-session.name = 'vml'; % eo, vmg, vms, vml
+session.name = 'eo'; % eo, vmg, vms, vml
 
 % Directories
 dirs.base   = ['/well/woolrich/projects/uk_meg_notts/' session.name];

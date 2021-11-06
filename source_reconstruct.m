@@ -195,4 +195,3 @@ for i = 1:nSubjects
 end
 
 save([dirs.srcRec '/options'], 'bandpassOptions', 'beamformingOptions', 'parcellationOptions', 'dipoleOptions');
-%save([dirs.srcRec '/options'], 'bandpassOptions', 'beamformingOptions', 'parcellationOptions');

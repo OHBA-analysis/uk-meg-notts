@@ -35,7 +35,7 @@ srcRecT     = cell(nSubjects, 1);
 for i = 1:nSubjects
     srcRecFiles{i} = [dirs.srcRec '/subject' num2str(i) '.mat'];
     data = load(srcRecFiles{i});
-    srcRecT{i} = data.T;
+    srcRecT{i} = sum(data.T);
 end
 
 %
@@ -63,10 +63,10 @@ d   = length(options.embeddedlags) - 1;
 acc = 0;
 for i = 1:nSubjects
     disp(['Computing spectra for subject ' num2str(i)]);
-    load(srcRecFiles{i}, 'X', 'T');
-    gamma = hmm.Gamma(acc + (1:(sum(T)-length(T)*d)),:);
+    load(srcRecFiles{i}, 'X');
+    gamma = hmm.Gamma(acc + (1:srcRecT{i}-d),:);
     acc = acc + size(gamma, 1);
-    fitMtSubject{i} = hmmspectramt(X, T, gamma, options);
+    fitMtSubject{i} = hmmspectramt(X, srcRecT{i}, gamma, options);
     fitMtSubject{i}.state = rmfield(fitMtSubject{i}.state, 'ipsd');
     fitMtSubject{i}.state = rmfield(fitMtSubject{i}.state, 'pcoh');
     fitMtSubject{i}.state = rmfield(fitMtSubject{i}.state, 'phase');

@@ -9,7 +9,8 @@ matlab -nodesktop
 >> convert_raw_data;
 >> preprocess_data;
 >> source_reconstruct;
->> prepare_data;
+>> prepare_te_pca_data;
 >> fit_hmm;
 >> analyse_hmm_fit;
+>> save_maps;
 ```
