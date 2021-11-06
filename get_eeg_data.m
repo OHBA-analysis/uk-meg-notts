@@ -5,8 +5,8 @@
 % Session info
 session.name = 'eo'; % eo, vmg, vms, vml
 if strcmp(session.name, 'eo')
-    session.optPrefix = 'Bffd';
-    %session.optPrefix = 'BAffd';
+    %session.optPrefix = 'Bffd';
+    session.optPrefix = 'BAffd';
 else
     %session.optPrefix = 'Reffd';
     session.optPrefix = 'ffd';
@@ -19,7 +19,10 @@ disp(session)
 % Directories
 dirs.base = ['/well/woolrich/projects/uk_meg_notts/' session.name];
 dirs.opt  = [dirs.base '/preproc.opt'];
-dirs.eeg  = [dirs.base '/eeg']
+dirs.eeg  = [dirs.opt '/eeg'];
+
+warning('off', 'MATLAB:MKDIR:DirectoryExists');
+mkdir(dirs.eeg);
 
 disp('using directories:');
 disp(dirs);
