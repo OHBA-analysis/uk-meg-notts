@@ -73,7 +73,7 @@ for i = 1:nSubjects
 
     S        = struct();
     S.band   = 'bandpass';
-    S.freq   = [1 98];
+    S.freq   = [1 45];
     S.prefix = filtPrefix;
     S.D      = [dirs.srcRec '/' filename ext];
 
@@ -87,7 +87,7 @@ for i = 1:nSubjects
     S                = struct();
     S.modalities     = {'MEGGRAD'};
     S.timespan       = [0 Inf];
-    S.pca_order      = 250;
+    S.pca_order      = 120;
     S.type           = 'Scalar';
     S.inverse_method = 'beamform';
     S.prefix         = bfPrefix;
@@ -105,7 +105,7 @@ for i = 1:nSubjects
     S                       = struct();
     S.D                     = [dirs.srcRec '/' bfPrefix filtPrefix filename ext];
     S.parcellation          = parcFile;
-    S.orthogonalisation     = 'innovations_mar';
+    S.orthogonalisation     = 'symmetric';
     S.innovations_mar_order = 14;
     S.method                = 'spatialBasis';
     S.normalise_voxeldata   = 0;
