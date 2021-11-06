@@ -50,7 +50,7 @@ end
 % Label artefact channels
 for i = 1:nSubjects
     D = spm_eeg_load(spmFiles{i});
-    D = D.chantype(find(strcmp(D.chanlabels, 'EEG057')), 'EOG');
+    D = D.chantype(find(strcmp(D.chanlabels, 'EEG057')), 'EOG1');
     D = D.chantype(find(strcmp(D.chanlabels, 'EEG058')), 'EOG2');
     D = D.chantype(find(strcmp(D.chanlabels, 'EEG059')), 'ECG');
     D = D.chantype(find(strcmp(D.chanlabels, 'EEG060')), 'EMG');
@@ -78,8 +78,9 @@ opt.africa.todo.ident  = 'auto';
 opt.africa.todo.remove = 1;
 opt.africa.ident.func  = @identify_artefactual_components_auto;
 opt.africa.ident.kurtosis_wthresh       = 0.2;
-opt.africa.ident.max_num_artefact_comps = 2;
+%opt.africa.ident.max_num_artefact_comps = 2;
 opt.africa.precompute_topos             = 1;
+opt.africa.ident.artefact_chans         = {'EOG1', 'EOG2', 'ECG', 'EMG'};
 
 % Bad segment removal
 nEventTypes = length(session.eventTypes);

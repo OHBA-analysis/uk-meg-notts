@@ -42,7 +42,7 @@ if exist('embed') && embed.do,
     end
 
     %lags=round(linspace(-num_embeddings/2,num_embeddings/2,num_embeddings));
-    lags=floor(-num_embeddings/2 + 1:num_embeddings/2);
+    lags=floor(-num_embeddings/2+1:num_embeddings/2);
     %lags=round(0:num_embeddings-1);
 
     disp(['lags=' mat2str(lags)]);
