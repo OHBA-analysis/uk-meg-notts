@@ -8,7 +8,7 @@ session.name = 'eo'; % eo, vmg, vms, vml
 % Directories
 dirs.base    = ['/well/woolrich/projects/uk_meg_notts/' session.name];
 dirs.srcRec  = [dirs.base '/natcomms18/src_rec'];
-dirs.results = [dirs.base '/natcomms18/results/Subj1-55_K-12'];
+dirs.results = [dirs.base '/natcomms18/results/Subj1-55_K-8'];
 
 disp('using directories:');
 disp(dirs);
@@ -83,17 +83,18 @@ fprintf('\nComputing spectral factorisation\n');
 options       = struct();
 options.Ncomp = 4;
 options.Base  = 'coh';
+options.Niterations = 1;
 
 [fitMtGroupFact4b, spProfiles4b, fitMtSubjectFact4b] = spectdecompose(fitMtSubject, options);
 
-save([dirs.results '/fitMt'], 'fitMtSubjectFact4b', 'fitMtGroupFact4b', 'spProfiles4b', '-append')
+save([dirs.results '/fitMtFact'], '-v7.3', 'fitMtSubjectFact4b', 'fitMtGroupFact4b', 'spProfiles4b');
 
 % Get the wideband maps (the second is capturing noise)
 options.Ncomp = 2;
 
 [fitMtGroupFactWb, spProfileWb, fitMtSubjectFactWb] = spectdecompose(fitMtSubject, options);
 
-save([dirs.results '/fitMt'], 'fitMtSubjectFactWb', 'fitMtGroupFactWb', 'spProfileWb', '-append')
+save([dirs.results '/fitMtFact'], 'fitMtSubjectFactWb', 'fitMtGroupFactWb', 'spProfileWb', '-append');
 
 % Check if the spectral profiles make sense, if not you may want to repeat
 fig = figure;
@@ -102,57 +103,3 @@ plot(spProfiles4b, 'LineWidth', 2);
 subplot(1,2,2);
 plot(spProfileWb, 'LineWidth', 2);
 saveas(fig, [dirs.results '/profiles.png']);
-
-%
-% Calculate power maps
-%
-fprintf('\nCalculating power maps\n');
-
-% Setup workbench
-workbenchDir = '/well/woolrich/projects/software/workbench/bin_rh_linux64';
-path1 = getenv('PATH');
-if ~contains(path1, workbenchDir)
-    path1 = [path1 ':' workbenchDir];
-    setenv('PATH', path1);
-end
-
-% Mask and parcellation file
-maskFile = [osldir '/std_masks/MNI152_T1_8mm_brain.nii.gz'];
-parcFile = [osldir '/parcellations/fmri_d100_parcellation_with_3PCC_ips_reduced_2mm_ss5mm_ds8mm_adj.nii.gz'];
-
-[mask, res, xform] = nii.load(maskFile);
-spatialMap = parcellation(parcFile);
-spatialMap = spatialMap.to_matrix(spatialMap.weight_mask);
-
-% Normalise the parcels to have comparable weights 
-for j = 1:size(spatialMap, 2)
-    spatialMap(:,j) =  spatialMap(:,j) / max(spatialMap(:,j));
-end
-
-% Wideband
-mapFile = [dirs.results '/state_maps_wideband'];
-map = zeros(size(spatialMap,1), length(fitMtGroupFactWb.state));
-for k = 1:hmm.K
-    psd = diag(squeeze(fitMtGroupFactWb.state(k).psd(1,:,:)));
-    map(:,k) = spatialMap * psd;
-end
-% Center by voxel across states
-map = map - repmat(mean(map,2), 1, size(map,2));
-mapFile = [dirs.results '/state_maps_wideband'];
-nii.save(matrix2vols(map, mask), res, xform, mapFile);
-osl_render4D([mapFile '.nii.gz'], 'savedir', mapFile, 'interptype', 'trilinear', 'visualise', false)
-
-% Per frequency band
-for fr = 1:3
-    mapFile = [dirs.results '/state_maps_band' num2str(fr)];
-    map = zeros(size(spatialMap,1), length(fitMtGroupFact4b.state));
-    for k = 1:hmm.K
-        psd = diag(squeeze(fitMtGroupFact4b.state(k).psd(fr,:,:)));
-        map(:,k) = spatialMap * psd;
-    end
-    % Center by voxel across states
-    map = map - repmat(mean(map,2), 1, size(map,2));
-    mapFile = [dirs.results '/state_maps_band' num2str(fr)];
-    nii.save(matrix2vols(map, mask), res, xform, mapFile);
-    osl_render4D([mapFile '.nii.gz'], 'savedir', mapFile, 'interptype', 'trilinear', 'visualise', false)
-end
