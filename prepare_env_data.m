@@ -55,5 +55,7 @@ for i = 1:nSubjects
     [filepath, filename, ext] = fileparts(srcRecFiles{i});
     spmFile = [dirs.srcRec '/' S.prefix filename];
     matFile = [dirs.prep '/subject' num2str(i)];
-    read_spm_file(spmFile, matFile);
+    [X, T] = read_spm_file(spmFile);
+    T = sum(T);
+    save(matFile, 'X', 'T');
 end
