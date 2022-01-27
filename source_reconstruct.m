@@ -9,11 +9,8 @@
 session.name = 'eo'; % eo, vmg, vms, vml
 if strcmp(session.name, 'eo')
     session.optPrefix = 'Bffd';
-    %session.optPrefix = 'BAffd';
 else
-    %session.optPrefix = 'Reffd';
-    %session.optPrefix = 'ffd';
-    session.optPrefix = 'Affd';
+    session.optPrefix = 'ffd';
 end
 
 disp('session info:')
@@ -25,7 +22,6 @@ nEmbeddings = 15;
 % Directories
 dirs.base   = ['/well/woolrich/projects/uk_meg_notts/' session.name];
 dirs.opt    = [dirs.base '/preproc.opt'];
-%dirs.srcRec = [dirs.base '/natcomms18_ica_' session.optPrefix '/src_rec'];
 dirs.srcRec = [dirs.base '/natcomms18/src_rec'];
 
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
@@ -127,7 +123,6 @@ for i = 1:nSubjects
     parcFiles{i} = [dirs.srcRec '/' parcPrefix bfPrefix filtPrefix filename ext];
 end
 
-
 % Fix dipole sign ambiguity
 fprintf('\nFixing dipole sign ambiguity\n');
 
@@ -147,43 +142,61 @@ S.concat.pcadim = -1;
 S.netmat_method = @netmat_cov;
 
 state_netmats_cov_preflipped = hmm_full_global_cov(parcFiles, S);
-
-% Assess which subject is the best template
 state_netmats = state_netmats_cov_preflipped;
 
-modes       = {'none','abs'};
-diag_offset = 15;
-
-metric_global = zeros(length(state_netmats), length(state_netmats), length(modes));
-for mm=1:length(modes)
-    for subj=1:length(state_netmats)
-       for subj2=1:length(state_netmats)
-            if subj2 ~= subj
-                metric_global(subj, subj2, mm) = matrix_distance_metric( ...
-                    state_netmats{subj}.global.netmat_full, ...
-                    state_netmats{subj2}.global.netmat_full, ...
-                    diag_offset,modes{mm}, ...
-                    []);
-            end
-       end
-    end
+mode        = 'abs';
+diag_offset = nEmbeddings;
+metric_global = zeros(length(state_netmats), length(state_netmats));
+for subj=1:length(state_netmats)
+   for subj2=1:length(state_netmats)
+        if subj2 ~= subj
+            metric_global(subj, subj2) = matrix_distance_metric( ...
+                state_netmats{subj}.global.netmat_full, ...
+                state_netmats{subj2}.global.netmat_full, ...
+                diag_offset,mode,[]);
+        end
+   end
 end
-
-tmp = sum(metric_global(:,:,2), 2);
+tmp = sum(metric_global, 2);
 template_subj = nearest(tmp, median(tmp));
 
 % Perform the sign flip
 S = struct();
-S.roinets_protocol = parcellationOptions.orthogonalisation;
-S.innovations_mar_order = parcellationOptions.innovations_mar_order;
 S.Ds = parcFiles;
 S.num_iters = 500;
 S.prefix = dipPrefix;
 S.num_embeddings = nEmbeddings;
 S.subj_template = template_subj;
-[signflipped_files_out, sign_flip_results] = find_sign_flips(S);
+[signflip_parcFiles, sign_flip_results] = find_sign_flips(S);
 
 dipoleOptions = S;
+
+% Sign flipping results
+sign_flip_results.signflipped_files = signflip_parcFiles;
+sign_flip_results.energies_group = mean(sign_flip_results.energies,2);
+sign_flip_results.energies = sign_flip_results.energies(1:20:end,:);
+sign_flip_results.subj_template_no = template_subj;
+
+save([dirs.srcRec '/sign_flipping_results'], '-struct', 'sign_flip_results', '-v7.3');
+
+S = [];
+S.concat = [];
+S.concat.embed.do = 1;
+S.concat.embed.num_embeddings = nEmbeddings;
+S.concat.embed.rectify = false;
+S.concat.whiten = 1;
+S.concat.normalisation = 'voxelwise';
+S.concat.pcadim = -1;
+S.netmat_method = @netmat_cov;
+
+state_netmats_cov_signflipped = hmm_full_global_cov(signflip_parcFiles, S);
+
+plot_sign_flip_results(state_netmats_cov_preflipped, ...
+    state_netmats_cov_signflipped, ...
+    template_subj, ...
+    [], ...
+    sign_flip_results, ...
+    [dirs.srcRec '/signflip_plot']);
 
 % Save source reconstructed data as a mat file
 for i = 1:nSubjects

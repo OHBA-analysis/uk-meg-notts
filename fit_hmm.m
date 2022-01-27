@@ -8,7 +8,7 @@ session.name = 'eo'; % eo, vmg, vms, vml
 % Directories
 dirs.base    = ['/well/woolrich/projects/uk_meg_notts/' session.name];
 dirs.prep    = [dirs.base '/natcomms18/prepared_data'];
-dirs.results = [dirs.base '/natcomms18/results/Subj1-55_K-8'];
+dirs.results = [dirs.base '/natcomms18/results/Subj1-55_K-10'];
 
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
 mkdir(dirs.results);
@@ -23,7 +23,6 @@ firstSubject = str2num(params{1});
 lastSubject  = str2num(params{2});
 nStates      = str2num(params{3});
 nSubjects    = lastSubject - firstSubject + 1;
-
 
 % Fit to time-embedded, PCA data
 options          = struct();
@@ -44,14 +43,14 @@ options.verbose  = 1;
 %options.K        = nStates;
 %options.order    = 0;
 %options.covtype  = 'full';
-%options.zeromean = 0;
+%options.zeromean = 1;
 %options.onpower  = 0;
 %options.Fs       = 250;
 %options.verbose  = 1;
 
 % Stochastic learning options
-options.BIGNinitbatch      = 4; % must be less than the number of subjects
-options.BIGNbatch          = 4; % must be less than the number of subjects
+options.BIGNinitbatch      = 5; % must be less than the number of subjects
+options.BIGNbatch          = 5; % must be less than the number of subjects
 options.BIGtol             = 1e-7;
 options.BIGcyc             = 500;
 options.BIGundertol_tostop = 5;

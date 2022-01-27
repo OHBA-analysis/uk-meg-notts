@@ -1,8 +1,4 @@
-function [data, num_embeddings] = prepare_data(D,normalisation,logtrans,embed,roinets_protocol,innovations_mar_order)
-
-if nargin < 6
-    innovations_mar_order=14;
-end
+function [data, num_embeddings] = prepare_data(D,normalisation,logtrans,embed)
 
 % Returns data as num_nodes x num_embeddings x ntpts
 
@@ -18,15 +14,6 @@ data = data(:,good_samples);
 % Log transform
 if logtrans
     data = log10(data);
-end
-
-% Do orthogonalisation
-if ~strcmp(roinets_protocol,'none'),
-    if ~strcmp(roinets_protocol, 'innovations_mar')
-        data = ROInets.remove_source_leakage(data,roinets_protocol);
-    else            
-        data = leakcorr(data',size(data,2),innovations_mar_order)';
-    end
 end
 
 % Do embedding

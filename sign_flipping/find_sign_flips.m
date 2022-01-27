@@ -11,8 +11,6 @@ Ds=Sin.Ds;
 
 try num_uber_updates=Sin.num_uber_updates; catch num_uber_updates=2*length(Ds); end;
 try method=Sin.method; catch method='matrix_distance_metric'; end;
-try roinets_protocol=Sin.roinets_protocol; catch roinets_protocol='symmetric'; end;
-try innovations_mar_order=Sin.innovations_mar_order; catch innovations_mar_order=14; end;
 try num_iters_within_updates=Sin.num_iters; catch num_iters=100; end;
 try num_embeddings=Sin.num_embeddings; catch num_embeddings=10; end;
 try subj_template=Sin.subj_template; catch subj_template=1; end;
@@ -20,8 +18,6 @@ try subj_template=Sin.subj_template; catch subj_template=1; end;
 %% compute embedded cov matrices
 S=[];
 S.concat = [];
-S.concat.protocol=roinets_protocol;
-S.concat.innovations_mar_order = innovations_mar_order;
 S.concat.embed.do=1;
 S.concat.embed.num_embeddings=num_embeddings;
 S.concat.embed.rectify=false;
@@ -207,8 +203,6 @@ end
 S=[];
 
 S.concat = [];
-S.concat.protocol=roinets_protocol;
-S.concat.innovations_mar_order = innovations_mar_order;
 S.concat.embed.do=1;
 S.concat.embed.num_embeddings=num_embeddings;
 S.concat.embed.rectify=false;

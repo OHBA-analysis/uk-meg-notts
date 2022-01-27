@@ -1,4 +1,4 @@
-function [ metric, inds ] = matrix_distance_metric( x,y,diag_offset,mode, inds )
+function [ metric, inds ] = matrix_distance_metric(x,y,diag_offset,mode,inds)
 % assumes symmetric matrix
 
 switch mode
